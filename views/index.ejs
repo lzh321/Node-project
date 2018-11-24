@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>学生系统管理</title>
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+  <div id="container">
+    <%- include('./common/head') %>
+
+    <div class="main">
+      <%- include('./subpage/login') %>
+      <div class="main-centent">
+          <%- include('./common/menu') %>
+          <div class="body">
+            <%- include('./subpage/studentInfo') %>
+          </div>
+      </div>
+      
+
+    </div>
+
+    <%- include('./common/foot') %>
+  </div>
+  
+</body>
 </html>

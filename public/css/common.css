@@ -1,0 +1,35 @@
+@charset "UTF-8";
+/*公共样式*/
+html, body { height: 100%; }
+
+body { background: #666; box-shadow: 0px 0px 157px 3px #000000 inset; }
+
+#container { height: 100%; display: flex; flex-direction: column; }
+
+.head { display: flex; align-items: center; height: 80px; justify-content: space-around; color: white; }
+.head .left { font-size: 30px; }
+.head .left .logo { text-decoration: none; color: white; }
+.head .right { font-size: 13px; display: flex; align-items: center; }
+.head .right .btn { padding: 3px 10px; margin-left: 5px; font-size: 10px; }
+
+.main { flex: 1; overflow: hidden; }
+.main .login { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #ccc; height: 100%; display: none; }
+.main .login .form { display: flex; flex-direction: column; align-items: center; padding: 30px 60px 20px; background: url("/images/bj1.jpeg") no-repeat 50% 63%; background-origin: padding-box; border-radius: 20px; color: white; }
+.main .login .form .login-text { font-weight: 600; font-size: 18px; margin-bottom: 30px; }
+.main .login .form .btn-success { color: #fff; background-color: #5cb85c; border-color: #4cae4c; margin: 20px 0 10px 45px; padding: 5px 70px; }
+.main .login .form .form-control { display: inline-block; width: 75%; height: 25px; }
+.main .login .form .use { margin-bottom: 25px; }
+.main .login .form .reg { width: 100%; font-size: 12px; text-align: right; margin-right: 10px; }
+.main .login .form .reg .r { text-decoration: none; }
+.main .main-centent { display: flex; height: 100%; justify-content: center; }
+.main .main-centent .class-nav { width: 140px; background: white; box-shadow: 5px 5px 50px -10px #ffd4d4cf; text-align: center; z-index: 1; }
+.main .main-centent .class-nav li { border-bottom: 1px solid #fff; box-shadow: 5px -10px 20px -1px #ffd4d4cf inset; height: 30px; line-height: 30px; }
+.main .main-centent .class-nav li:hover { background: #1b74c1; }
+.main .main-centent .body { display: flex; flex-direction: column; align-items: center; flex: 0.8; height: 100%; background: white; overflow-y: scroll; }
+.main .main-centent .body .searchUser { display: flex; width: 80%; justify-content: flex-end; margin: 20px 0; }
+.main .main-centent .body .tables { width: 80%; }
+.main .main-centent .body .page { width: 60%; }
+
+.foot { color: black; height: 70px; text-align: center; line-height: 50px; }
+
+/*# sourceMappingURL=common.css.map */
