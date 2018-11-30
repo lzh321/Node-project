@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生系统管理</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+    <div id="container">
+        <%- include('./common/head') %>
+            <div class="main">
+                <div class="login">
+                    <form class="form" action="/users/register" method="post">
+                        <div class="login-text">
+                            <p>用户注册</p>
+                        </div>
+                        <div>
+                            <table class="use">
+                                用户名：<input name = "username" class="form-control" type="text">
+                            </table>
+                            <table class="use">
+                                密&emsp;码：<input name="pwd" class="form-control" type="password">
+                            </table>
+                            <table class="use">
+                                昵&emsp;称：<input name="nickname" class="form-control" type="text">
+                            </table>
+                            <table class="use">
+                                年&emsp;龄：<input name="age" class="form-control" type="text">
+                            </table>
+                            <table class="use">
+                                性&emsp;别：男&emsp;<input name="sex" type="radio" value="男" checked>&emsp;
+                                女&emsp;<input name="sex" value="女" type="radio">
+                            </table>
+                            <table class="use">
+                                是否是管理员：是&emsp;<input name="isadmin" value="是" type="radio">&emsp;否&emsp;<input name="isadmin" value="否" type="radio" checked>
+                            </table>
+                            <input class="btn btn-success" type="submit" value="注册">
+                        </div>
+                        <div class="reg">
+                            <a class="reg r" href="/login.html">已有账号，请登录>>></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <%- include('./common/foot') %>
+    </div>
+</body>
+
+</html>

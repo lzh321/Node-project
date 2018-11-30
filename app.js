@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var ignoreRouter = require('./config/ignoreRouter') 
+var MongoClient=require('mongodb').MongoClient;
+var url = 'mongodb://127.0.0.1:27017';
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,8 +22,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//自己实现的中间件函数，用来判断用户是否登录
+app.use(function(req,res,next){
+
+  if(ignoreRouter.indexOf(req.url) > -1){
+    next();
+    return;
+  }
+
+  var nickname = req.cookies.nickname;
+  if(nickname){
+
+    next();
+  }else{
+    //如果 nickname 不存，就跳转到 登录页面
+    res.redirect('/login.html')
+  }
+})
+
+//自己实现的中间件，用来判断用户是否是管理员
+
+
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

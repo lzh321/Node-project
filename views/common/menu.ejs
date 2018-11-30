@@ -1,5 +1,8 @@
 <ul class="class-nav">
-    <li>基本信息</li>
-    <li>学分成绩</li>
-    <li>所选科目</li>
+   <% if(isadmin == "true"){%>
+    <li><a href="/users/user.html">管理员信息</a></li>
+    <%} %>
+    <li><a href="/users/studentInfo.html">学生信息</a></li>
+    <li><a href="/users/creditScores.html">学分成绩</a></li>
+    <li><a href="">所选科目</a></li>
 </ul>

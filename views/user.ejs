@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生系统管理</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+    <div id="container">
+        <%- include('./common/head') %>
+            <div class="main">
+                <div class="main-centent">
+                    <%- include('./common/menu') %>
+                        <div class="body">
+                            <%- include('./common/searchUser') %>
+                            <div class="tables">
+                                <div class="bs-example" data-example-id="contextual-table">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>编号</th>
+                                                <th>姓名</th>
+                                                <th>年龄</th>
+                                                <th>性别</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for (var i = 0; i < list.length; i++) {%>
+                                                <tr class="active">
+                                                    <th scope="row">
+                                                        <%= i+1 %>
+                                                    </th>
+                                                    <td>
+                                                        <%= list[i].username %>
+                                                    </td>
+                                                    <td>
+                                                        <%= list[i].age %>
+                                                    </td>
+                                                    <td>
+                                                        <%= list[i].sex %>
+                                                    </td>
+                                                    <td>
+                                                        <% if( list[i].isadmin == false ) {%>
+                                                            <a href="/users/delete?id=<%= list[i]._id %>">删除</a>
+                                                            <% }else{%>
+                                                            <a href="users/delete?id=<%= list[i]._id %>">操作</a>
+                                                            <% } %>
+
+                                                    </td>
+                                                </tr>
+                                                <% }%>
+                                                <tr>
+                                                    <td>
+                                                        <a href="">新增</a>
+                                                    </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <nav>
+                                        <ul class="pagination">
+                                            <li class="<%= currentPage == (i-1) ? 'disabled' : '' %>disabled">
+                                                <a href="/users/user.html?page=<%= currentPage - 1 < 1 ? 1 : currentPage - 1 %>&pageSize=<%= pageSize %>" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+
+                                        <% for (var i=0; i < totalPage; i++) {%>
+                                            <li class="<%= currentPage === (i+1) ? 'active' : '' %>">
+                                                <a href="/users/user.html?page=<%= i + 1 %>&pageSize=<%= pageSize %>"><%= i + 1 %></a>
+                                            </li>
+                                        <% } %>
+
+                                            <li>
+                                                <a href="/users/user.html?page=<%= currentPage + 1 > totalPage ? totalPage : currentPage + 1 %>&pageSize=<%= pageSize %>" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <%- include('./common/foot') %>
+    </div>
+</body>
+
+</html>
