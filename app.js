@@ -40,7 +40,8 @@ app.use(function(req,res,next){
   }
 })
 
-//自己实现的中间件，用来判断用户是否是管理员
+
+
 
 
 

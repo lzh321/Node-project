@@ -39,7 +39,7 @@
                                                         <%= i+1 %>
                                                     </th>
                                                     <td>
-                                                        <%= list[i].username %>
+                                                        <%= list[i].nickname %>
                                                     </td>
                                                     <td>
                                                         <%= list[i].age %>
@@ -48,11 +48,12 @@
                                                         <%= list[i].sex %>
                                                     </td>
                                                     <td>
-                                                        <% if( list[i].isadmin == false ) {%>
+                                                        <% if( list[i].isadmin == false && list[i].nickname) {%>
                                                             <a href="/users/delete?id=<%= list[i]._id %>">删除</a>
-                                                            <% }else{%>
-                                                            <a href="users/delete?id=<%= list[i]._id %>">操作</a>
-                                                            <% } %>
+                                                            <!-- <a href="users/delete?id=<%= list[i]._id %>">修改</a> -->
+                                                            <% }%>
+                                                            
+                                                            
 
                                                     </td>
                                                 </tr>

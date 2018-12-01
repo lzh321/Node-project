@@ -4,12 +4,15 @@ var MongoClient= require('mongodb').MongoClient;
 var async = require('async');
 var ObjectId = require('mongodb').ObjectId;  //mongodb下的一个获取ID的方法
 var url = 'mongodb://127.0.0.1:27017';
+var fs = require('fs');
+var path = require('path');
 
 /* GET users listing. */
 router.get('/user.html', function(req, res, next) {
   var page = parseInt(req.query.page) || 1;  //页码
   var pageSize = parseInt(req.query.pageSize) || 5;  //每页显示的条数
   var totalSize = 0;  //总条数
+  var searchVal = new RegExp(req.query.searchVal);
   MongoClient.connect(url,{useNewUrlParser:true},function(err,client){
     if(err){
       //连接数据库失败
@@ -44,6 +47,16 @@ router.get('/user.html', function(req, res, next) {
             cb(null,data)
           }
         })
+      },
+      function(cb){
+        db.collection('user').find({$or:[{nickname:searchVal},{sex:searchVal}]}).toArray(function(err,data1){
+    
+          if(err){
+            cb(err)
+          }else{
+            cb(null,data1)
+          }
+        })
       }
     ],function(err,result){
       if(err){
@@ -55,6 +68,7 @@ router.get('/user.html', function(req, res, next) {
         var totalPage = Math.ceil(totalSize / pageSize);  //总条数 / 每页显示的条数 = 总的页数
         res.render('user',{
           list:result[1],
+          list:result[2],
           pageSize:pageSize,
           totalPage:totalPage,
           currentPage:page,
@@ -579,7 +593,73 @@ router.get('/deletecookie',function(req,res,next){
 
 
 
+//上传图片
 
+//自己实现的中间件，用来做上传图片的
+//引用multer 模板
+var multer = require('multer') 
+//dets设置
+var upload = multer({dest:'E:/1809/Node-project/tmp'})
+
+router.post('/upload',upload.single('file'),function(req,res,next){
+  //single 是单个文件上传  array以数组多个上传
+  //使用了 multer ，并且在当前接口上使用了，这些req对象上就会有一个file属性就包含这你上传过来的一些信息
+  
+  var filename = 'phoneImg/' + new Date().getTime() + '_' + req.file.originalname
+  var newFileName= path.resolve(__dirname,'../public/phoneImg/',new Date().getTime() + '_' + req.file.originalname);
+  try{
+    var data = fs.readFileSync(req.file.path);
+    fs.writeFileSync(newFileName,data)
+    // res.send('上传成功')
+    MongoClient.connect(url,{useNewUrlParser:true},function(err,client){
+      if(err){
+        res.render('error',{
+          message:'连接数据库失败',
+          error:err
+        })
+      }
+      var db = client.db('studentSystem');
+      async.series([
+        function(cb){
+          db.collection('headportrait').insertOne({name:req.body.phoneImg,headportraitUrl:filename},function(err){
+            if(err){
+              cb(err)
+            }else{
+              cb(null)
+            }
+          })
+        },
+        function(cb){
+          db.collection('headportrait').find().toArray(function(err,data){
+            if(err){
+              cb(err)
+            }else{
+              cb(null,data)
+            }
+          })
+        }
+      ],function(err,result){
+        if(err){
+          res.render('error',{
+            message:'错误',
+            error:err
+          })
+        }else{
+          res.render('index',{
+            list:result[1]
+          })
+        }
+      })
+     })
+  } catch(error) {
+    res.render('error',{
+      message:'新增图片失败',
+      error:error
+    })
+  }
+  // res.redirect('/index.html')
+  console.log(req.file)
+})
 
 
 

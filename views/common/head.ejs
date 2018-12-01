@@ -3,7 +3,13 @@
         <a class="logo" href="/index.html">学生信息管理系统</a>
     </div>
     <div class="right">
-        <p>欢迎-<%= nickname %>-管理员</p>
+       
+        <p>
+            <span>欢迎-<%= nickname %>-</span>
+            <% if(isadmin == "true"){%>
+            <span>管理员</span>
+            <%}%>
+        </p>
         <a href="/users/deletecookie" class="button btn btn-primary btn-sm">退出</a>
     </div>
 </div>
