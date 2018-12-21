@@ -198,10 +198,12 @@ router.post('/login',function(req,res){
 });
 
 
-// router.get('/common/menu.html')
+
+
+
+
 
 //注册操作
-
 router.post('/register',function(req,res){
   MongoClient.connect(url,{useNewUrlParser:true},function(err,client){
     var name = req.body.username;
@@ -288,8 +290,10 @@ router.post('/register',function(req,res){
   })
 });
 
-//删除操作  http://localhost:3000/users/delect
 
+
+
+//删除操作  http://localhost:3000/users/delect
 router.get('/delete',function(req,res){
   var id = req.query.id;  // 获取id
 
@@ -319,33 +323,6 @@ router.get('/delete',function(req,res){
   })
 });
 
-
-// router.get('/',function(req,res){
-//   var nickname = req.query.cookie.nickname
-//     console.log(nickname)
-//   MongoClient.connect(url,{useNewUrlParser:true},function(err,client){
-    
-//     if(err){
-//       res.render('error',{
-//         message:'连接数据库失败',
-//         error:err
-//       })
-//     }
-//     var db = client.db('studentSystem');
-//     db.collection('user').find({nickname:nickname}).toArray(function(err,data){
-//       if(err){
-//         res.render('error',{
-//           message:'连接失败',
-//           error:err
-//         })
-//       }else{
-//         res.render('/',{
-//           isadmin:data
-//         })
-//       }
-//     })
-//   })
-// })
 
 
 
@@ -444,7 +421,7 @@ router.get('/creditScores.html',function(req,res){
       return;
     }
     var db = client.db('studentSystem');  //连接数据库成功
-    //这里因为需要多次操作数据库，所以使用异步操作流程 
+    //  这里需要多次操作数据库，所以使用异步操作流程 
     //  第一步 把数据取出来，显示在页面
     //  第二步 截取数据，把数据按一页3条的形式渲染在页面
     async.series([
@@ -619,6 +596,7 @@ router.post('/upload',upload.single('file'),function(req,res,next){
         })
       }
       var db = client.db('studentSystem');
+      //异步流程控制
       async.series([
         function(cb){
           db.collection('headportrait').insertOne({name:req.body.phoneImg,headportraitUrl:filename},function(err){
@@ -645,9 +623,7 @@ router.post('/upload',upload.single('file'),function(req,res,next){
             error:err
           })
         }else{
-          res.render('index',{
-            list:result[1]
-          })
+          res.render('上传成功')
         }
       })
      })
